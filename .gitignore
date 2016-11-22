@@ -1,0 +1,4 @@
+venv
+english_words/.idea
+english_words/db.sqlite3
+english_words/english_words/*.pyc
