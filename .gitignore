@@ -3,3 +3,4 @@ english_words/.idea
 english_words/db.sqlite3
 english_words/english_words/*.pyc
 english_words/learn_words/migrations
+english_words/learn_words/*.pyc

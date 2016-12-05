@@ -1,3 +1,7 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import EnglishWord
+from .models import RussianWord
+
+admin.site.register(EnglishWord)
+admin.site.register(RussianWord)
