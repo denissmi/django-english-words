@@ -1,0 +1,24 @@
+{% extends 'index.html' %}
+
+{% block show_words %}
+    {% if word_list %}
+        <table class="hover">
+            <thead>
+                <tr>
+                  <th width="200">Word</th>
+                  <th>Translation</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for word in word_list %}
+                    <tr>
+                        <td>{{ word.word }}</td>
+                        <td>{{ word.translation }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No words are available.</p>
+    {% endif %}
+{% endblock %}
