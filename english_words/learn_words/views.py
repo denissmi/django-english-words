@@ -12,7 +12,7 @@ def show_english(request):
     context = {
         'word_list': word_list,
     }
-    return render(request, 'show_words/index.html', context)
+    return render(request, 'show_words.html', context)
 
 
 def show_russian(request):
@@ -23,4 +23,4 @@ def show_russian(request):
     context = {
         'word_list': word_list,
     }
-    return render(request, 'show_words/index.html', context)
+    return render(request, 'show_words.html', context)
