@@ -30,3 +30,8 @@ def show_english(request):
 
 def show_russian(request):
     return show_words(request, RussianWord)
+
+
+def add_word(request):
+
+    return render(request, 'add_word.html')

@@ -4,7 +4,9 @@
     <head>
         <meta charset="UTF-8">
         <title>English Words</title>
-        <link rel="stylesheet" type="text/css" href="{% static "css/foundation.css" %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'foundation/css/foundation.css' %}">
+        <script src="{% static 'jquery/js/jquery-3.1.1.js' %}"></script>
+        <script src="{% static 'add_word.js' %}"></script>
     </head>
     <body>
         <nav class="top-bar" data-topbar role="navigation">
@@ -12,6 +14,7 @@
                 <ul class="horizontal menu">
                     <li><a href="{% url 'show_english' %}">Show English Words</a></li>
                     <li><a href="{% url 'show_russian' %}">Show Russian Words</a></li>
+                    <li><a href="{% url 'add_word' %}">Add new word</a></li>
 
                     {% if user.username %}
                         <li><a href="{% url 'log_out' %}">Logout ({{ user.username }})</a></li>
@@ -25,5 +28,6 @@
         {% block login %}{% endblock %}
         {% block register %}{% endblock %}
         {% block show_words %}{% endblock %}
+        {% block add_word %}{% endblock %}
     </body>
 </html>
