@@ -1,4 +1,4 @@
-from django.shortcuts import render_to_response, redirect
+from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.template.context_processors import csrf
@@ -16,9 +16,9 @@ def log_in(request):
             return redirect('/learn_words/show/english/')
         else:
             args['login_error'] = "User is not found"
-            return render_to_response('registration/login.html', args)
+            return render(request, 'registration/login.html', args)
     else:
-        return render_to_response('registration/login.html', args)
+        return render(request, 'registration/login.html', args)
 
 
 def log_out(request):
@@ -39,4 +39,4 @@ def register(request):
             return redirect('/learn_words/show/english/')
         else:
             args['form'] = new_user_form
-    return render_to_response('registration/register.html', args)
+    return render('registration/register.html', args)

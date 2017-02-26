@@ -2,18 +2,20 @@
 
 {% block add_word %}
 <div class="medium-6 medium-centered large-4 large-centered columns">
-        <fieldset class="fieldset">
-            <legend>Language</legend>
-            <input id="checkbox12" type="checkbox"><label for="checkbox12">Russian</label>
-            <input id="checkbox22" type="checkbox"><label for="checkbox22">English</label>
-        </fieldset>
         <form action="% url 'add_word' %" method="post">
             {% csrf_token %}
-            <label for="english">English: </label>
-            <input id="english" type="text" name="english" maxlength="256" required />
-            <label for="russian">Russian: </label>
-            <textarea id="russian" type="text" name="russian" maxlength="256" required ></textarea>
-            <input class="button" type="submit" value="Add">
+            <label for="new_english_word">English: </label>
+            <input id="new_english_word" type="text"
+                   placeholder="Only one english word"
+                   name="english" maxlength="256" value="{{ english }}" required />
+            <label for="new_russian_word">Russian: </label>
+            <textarea id="new_russian_word"
+                      placeholder="Russian translation of the word. If more than one use ',' separator"
+                      name="russian" maxlength="256" rows="4" required >{{ russian }}</textarea>
+            {% if warning_message %}
+                <label class="error"><font color="red">{{ warning_message }}</font></label>
+            {% endif %}
+            <input id="add_word_button" class="button" type="submit" value="Add" disabled>
         </form>
     </div>
 {% endblock %}
