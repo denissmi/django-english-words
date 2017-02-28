@@ -9,14 +9,19 @@ from .models import EnglishWord, RussianWord
 def show_words(request, english=True):
     context = {
         'word_list': None,
-        'warning_message': None
+        'warning_message': None,
+        'english': english
     }
+    context.update(csrf(request))
 
     try:
         user = User.objects.get(username=request.user.username)
     except ObjectDoesNotExist:
         context['warning_message'] = 'You are not authorized.'
         return render(request, 'show_words.html', context)
+
+    if request.POST:
+        delete_words(request.POST.getlist('marked_words'), english, user.id)
 
     try:
         if english:
@@ -32,6 +37,13 @@ def show_words(request, english=True):
     return render(request, 'show_words.html', context)
 
 
+def delete_words(marked_words, english, user_id):
+    if english:
+        EnglishWord.objects.filter(word__in=marked_words, author=user_id).delete()
+    else:
+        RussianWord.objects.filter(word__in=marked_words, author=user_id).delete()
+
+
 def show_english(request):
     return show_words(request)
 
@@ -42,26 +54,26 @@ def show_russian(request):
 
 def add_word(request):
     extra_symbols = ['.', ';']
-    args = {}
-    args.update(csrf(request))
+    context = {}
+    context.update(csrf(request))
 
     if request.POST:
         english = remove_extra_spaces(request.POST['english'])
         russian = split_words(request.POST['russian'])
-        args['english'] = english
-        args['russian'] = ', '.join(russian)
+        context['english'] = english
+        context['russian'] = ', '.join(russian)
 
         try:
             user = User.objects.get(username=request.user.username)
         except ObjectDoesNotExist:
-            args['warning_message'] = 'You are not authorized.'
-            return render(request, 'add_word.html', args)
+            context['warning_message'] = 'You are not authorized.'
+            return render(request, 'add_word.html', context)
 
         for word in russian:
             if True in (symbol in word for symbol in extra_symbols):
-                args['warning_message'] = word + ' russian word is not correct. ' \
+                context['warning_message'] = word + ' russian word is not correct. ' \
                                      'Probably you entered one of ' + ' '.join(extra_symbols) + ' symbols.'
-                return render(request, 'add_word.html', args)
+                return render(request, 'add_word.html', context)
 
         save_english(english, russian, user)
         save_russian(english, russian, user)
@@ -102,7 +114,3 @@ def save_russian(english, russian, user):
         except ObjectDoesNotExist:
             russian_word = RussianWord(word=word, translation=english, author=user)
             russian_word.save()
-
-
-def delete_words(request):
-    return render(request, 'show_words.html')

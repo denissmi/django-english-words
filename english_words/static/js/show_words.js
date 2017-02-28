@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    $('#check_all').change(function(){
+    $('#mark_all').change(function(){
         if ($(this).prop('checked'))
             $('[type="checkbox"]').prop('checked', true);
         else
