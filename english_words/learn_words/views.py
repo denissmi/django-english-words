@@ -41,7 +41,7 @@ def show_russian(request):
 
 
 def add_word(request):
-    extra_symbols = ['.', ',', ';']
+    extra_symbols = ['.', ';']
     args = {}
     args.update(csrf(request))
 
@@ -55,11 +55,6 @@ def add_word(request):
             user = User.objects.get(username=request.user.username)
         except ObjectDoesNotExist:
             args['warning_message'] = 'You are not authorized.'
-            return render(request, 'add_word.html', args)
-
-        if True in (symbol in english for symbol in extra_symbols):
-            args['warning_message'] = english + ' english word is not correct. ' \
-                                 'Probably you entered one of ' + ' '.join(extra_symbols) + ' symbols.'
             return render(request, 'add_word.html', args)
 
         for word in russian:
@@ -107,3 +102,7 @@ def save_russian(english, russian, user):
         except ObjectDoesNotExist:
             russian_word = RussianWord(word=word, translation=english, author=user)
             russian_word.save()
+
+
+def delete_words(request):
+    return render(request, 'show_words.html')

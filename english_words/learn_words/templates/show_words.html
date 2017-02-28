@@ -2,22 +2,26 @@
 
 {% block show_words %}
     {% if word_list %}
-        <table class="hover">
-            <thead>
-                <tr>
-                  <th width="200">Word</th>
-                  <th>Translation</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for word in word_list %}
+        <form action="{% url 'delete_words' %}" method="post">
+            {% csrf_token %}
+            <table class="hover">
+                <thead>
                     <tr>
-                        <td>{{ word.word }}</td>
-                        <td>{{ word.translation }}</td>
+                      <th width="200"><input id="check_all" type="checkbox"> Word</th>
+                      <th>Translation</th>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    {% for word in word_list %}
+                        <tr>
+                            <td><input type="checkbox"> {{ word.word }}</td>
+                            <td>{{ word.translation }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <input id="delete_words_button" class="button" type="submit" value="Remove" disabled>
+        </form>
     {% else %}
         <p>{{ warning_message }}</p>
     {% endif %}
