@@ -6,3 +6,6 @@ english_words/learn_words/migrations
 english_words/learn_words/*.pyc
 english_words/loginsys/migrations
 english_words/loginsys/*.pyc
+english_words/static/*
+!english_words/static/css
+!english_words/static/js
