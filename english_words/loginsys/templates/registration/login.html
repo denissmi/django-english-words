@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block login %}
+
+<div class="row">
+    <div class="medium-6 medium-centered large-4 large-centered columns">
+        <form method="post" action="{% url 'log_in' %}">
+            {% csrf_token %}
+            <div class="row column log-in-form">
+                <h4 class="text-center">Log in with your account</h4>
+                <label for="username">{{ form.username.label_tag }}</label>
+                <input type="text" placeholder="Username" name="username" id="username">
+                <label for="password">{{ form.password.label_tag }}</label>
+                <input type="password" placeholder="Password" name="password" id="password">
+                {% if login_error %}
+                    <label class="error">{{ login_error }}</label>
+                {% endif %}
+                <input type="submit" class="button" value="Log In" />
+                <div class="label round secondary"><a href="{% url 'register' %}">Register</a></div>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

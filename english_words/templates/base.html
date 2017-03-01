@@ -1,0 +1,37 @@
+{% load staticfiles %}
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>English Words</title>
+
+        <link rel="stylesheet" type="text/css" href="{% static 'foundation/css/foundation.css' %}">
+        <script src="{% static 'jquery/js/jquery-3.1.1.js' %}"></script>
+
+        <link rel="stylesheet" type="text/css" href="{% static 'css/show_words.css' %}">
+        <script src="{% static 'js/show_words.js' %}"></script>
+        <script src="{% static 'js/add_word.js' %}"></script>
+    </head>
+    <body>
+        <nav class="top-bar" data-topbar role="navigation">
+            <section class="top-bar-section">
+                <ul class="horizontal menu">
+                    <li><a href="{% url 'show_english' %}">Show english words</a></li>
+                    <li><a href="{% url 'show_russian' %}">Show russian words</a></li>
+                    <li><a href="{% url 'add_word' %}">Add new word</a></li>
+
+                    {% if user.username %}
+                        <li><a href="{% url 'log_out' %}">Logout ({{ user.username }})</a></li>
+                    {% else %}
+                        <li><a href="{% url 'log_in' %}">Login</a></li>
+                    {% endif %}
+                </ul>
+            </section>
+        </nav>
+
+        {% block login %}{% endblock %}
+        {% block register %}{% endblock %}
+        {% block show_words %}{% endblock %}
+        {% block add_word %}{% endblock %}
+    </body>
+</html>

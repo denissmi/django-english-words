@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block show_words %}
+    {% if word_list %}
+        {% if english %}
+            <form action="{% url 'show_english' %}" method="post">
+        {% else %}
+            <form action="{% url 'show_russian' %}" method="post">
+        {% endif %}
+            {% csrf_token %}
+            <table class="hover">
+                <thead>
+                    <tr>
+                      <th width="200"><input id="mark_all" type="checkbox"> Word</th>
+                      <th>Translation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for word in word_list %}
+                        <tr>
+                            <td><input type="checkbox" name="marked_words" value="{{ word.word }}"> {{ word.word }}</td>
+                            <td>{{ word.translation }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <input id="delete_words_button" class="button" type="submit" value="Remove" disabled>
+        </form>
+    {% else %}
+        <p>{{ warning_message }}</p>
+    {% endif %}
+{% endblock %}

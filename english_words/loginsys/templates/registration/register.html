@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block register %}
+    <div class="medium-6 medium-centered large-4 large-centered columns">
+        <form action="{% url 'register' %}" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <input class="button" type="submit" value="Register">
+        </form>
+    </div>
+{% endblock %}
